@@ -1,2 +1,2 @@
 # DigisparkScripts
-Set of scripts.ini for attiny85
+Set of scripts.ino for attiny85
